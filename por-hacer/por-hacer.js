@@ -2,6 +2,7 @@
 
 
 const fs=require('fs');
+const colors= require('colors');
 
 let listadoPorHacer=[];
 
@@ -40,9 +41,29 @@ const crear=(descripcion)=>{
     return porHacer;
 }
 
-const getListado=()=>{
-    cargarDB();
-    return listadoPorHacer;
+const getListado=(completado)=>{
+    if(completado===undefined){
+        cargarDB();
+        return listadoPorHacer;
+    }else if(completado==='true'){
+        cargarDB();
+        let listadoCompletos= listadoPorHacer.filter(tarea=>{
+            return tarea.completado===true;
+        });
+        return listadoCompletos;
+    }else if(completado==='false'){
+        cargarDB();
+        let listadoFaltantes=listadoPorHacer.filter(tarea=>{
+            return tarea.completado===false;
+        });
+        return listadoFaltantes;
+    }else{
+        console.log("\n====================".red)
+        console.log("Filtro no reconocido".red)
+        console.log("====================\n".red)
+        cargarDB();
+        return listadoPorHacer;
+    }
 }
 
 const actualizar=(desc, completado=true)=>{

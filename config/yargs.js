@@ -29,6 +29,13 @@ const argv =require('yargs')
         desc: 'Elimina un elemento de la lista'
     }
 })
+.command('listar', 'Lista los elementos',
+{
+    completado:{
+        alias: 'c',
+        desc: 'Lista los elementos completados o no completados'
+    }
+})
 .help()
 .argv;
 
